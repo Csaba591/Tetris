@@ -1,6 +1,7 @@
 package tetris;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +20,8 @@ import tetris.Tetromino;
 
 public class PlayArea extends Pane {
 	private ArrayList<Tetromino> tetrominos;
-	private String[] shapes = {"I", "L", "S", "O", "T"};
+	private String[] shapes = {"I", "L", "S", "O", "T", "J", "Z"};
+	private Random rand = new Random(System.currentTimeMillis());
 	private Tetromino currentT;
 	private String lastShape;
 	private double width = 300.0;
@@ -29,7 +31,7 @@ public class PlayArea extends Pane {
 		setPrefSize(width, height);
 		setBackground(new Background(new BackgroundFill(Color.DARKSLATEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		tetrominos = new ArrayList<Tetromino>();
-		String firstShape = shapes[(int) (System.currentTimeMillis() % shapes.length)];
+		String firstShape = shapes[rand.nextInt(shapes.length)];
 		lastShape = firstShape;
 		tetrominos.add(new Tetromino(firstShape));
 		currentT = tetrominos.get(0);
@@ -46,9 +48,9 @@ public class PlayArea extends Pane {
 		        		else {
 		        			removeFullRows();
 		        			lastShape = currentT.getShape();
-		        			String newShape = shapes[(int) (System.nanoTime() % shapes.length)];
+		        			String newShape = shapes[rand.nextInt(shapes.length)];
 		        			while(newShape.equals(lastShape))
-		        				newShape = shapes[(int) (System.currentTimeMillis() % shapes.length)];
+		        				newShape = shapes[rand.nextInt(shapes.length)];
 		        			tetrominos.add(new Tetromino(newShape));
 		        			currentT = tetrominos.get(tetrominos.size() - 1);
 		        			getChildren().addAll(currentT.getRectangles());

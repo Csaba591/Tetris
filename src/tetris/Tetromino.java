@@ -34,7 +34,7 @@ public class Tetromino {
 									  {1, 1}};
 			break;
 		case "T":
-			color = Color.PINK;
+			color = Color.HOTPINK;
 			shapeArray = new int[][]{{1, 0},
 									  {1, 1},
 									  {1, 0}};
@@ -44,6 +44,18 @@ public class Tetromino {
 			shapeArray = new int[][]{{1, 0},
 									  {1, 1},
 									  {0, 1}};
+			break;
+		case "Z":
+			color = Color.FIREBRICK;
+			shapeArray = new int[][]{{0, 1},
+									  {1, 1},
+									  {1, 0}};
+			break;
+		case "J":
+			color = Color.MEDIUMBLUE;
+			shapeArray = new int[][]{{0, 1},
+									  {0, 1},
+									  {1, 1}};
 			break;
 		default: System.out.println("HIBAAA"); break;
 		}
