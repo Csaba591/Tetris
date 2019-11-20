@@ -92,13 +92,10 @@ public class PlayArea extends Pane {
 	private void removeFullRows() {
 		double blockSideSize = currentT.getSideSize();
 		double rowHeight;
-		int allrects = 0;
-		int remainingrects = 0;
 		for(int row = 0; row < (int) height / blockSideSize; row++) {
 			if(rowIsFull(row)) {
 				rowHeight = row * blockSideSize;
 				for(Tetromino t : tetrominos) {
-					allrects += t.getRectangles().size();
 					for(Rectangle r : t.getRectangles()) {
 						if(r.getLayoutY() == rowHeight)
 							this.getChildren().remove(r);
@@ -106,13 +103,11 @@ public class PlayArea extends Pane {
 					t.removeRow(row);
 				}
 				for(Tetromino t : tetrominos) {
-					remainingrects += t.getRectangles().size();
 					for(Rectangle r : t.getRectangles()) {
 						if(r.getLayoutY() < rowHeight)
 							r.setLayoutY(r.getLayoutY() + blockSideSize);
 					}
 				}
-				System.out.println("all: " + allrects + " remaining: " + remainingrects);
 			}
 		}
 	}
