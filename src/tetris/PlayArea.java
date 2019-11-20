@@ -91,19 +91,35 @@ public class PlayArea extends Pane {
 	
 	private void removeFullRows() {
 		double blockSideSize = currentT.getSideSize();
-		for(int row = 0; row < (int) height / blockSideSize; row++)
-			if(rowIsFull(row))
+		double rowHeight;
+		int allrects = 0;
+		int remainingrects = 0;
+		for(int row = 0; row < (int) height / blockSideSize; row++) {
+			if(rowIsFull(row)) {
+				rowHeight = row * blockSideSize;
 				for(Tetromino t : tetrominos) {
-					for(Rectangle r : t.getRectangles())
-						this.getChildren().remove(r);
+					allrects += t.getRectangles().size();
+					for(Rectangle r : t.getRectangles()) {
+						if(r.getLayoutY() == rowHeight)
+							this.getChildren().remove(r);
+					}
 					t.removeRow(row);
 				}
+				for(Tetromino t : tetrominos) {
+					remainingrects += t.getRectangles().size();
+					for(Rectangle r : t.getRectangles()) {
+						if(r.getLayoutY() < rowHeight)
+							r.setLayoutY(r.getLayoutY() + blockSideSize);
+					}
+				}
+				System.out.println("all: " + allrects + " remaining: " + remainingrects);
+			}
+		}
 	}
 	
 	public class MovementHandler implements EventHandler<KeyEvent> {
 		@Override
 		public void handle(KeyEvent key) {
-			System.out.println(key.getCode());
 			move(key.getCode());
 		}
 		private void move(KeyCode direction) {

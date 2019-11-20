@@ -85,11 +85,11 @@ public class Tetromino {
 	
 	public void removeRow(int row) {
 		double height = row * blockSideSize;
-		Rectangle r = new Rectangle();
-		for(Iterator<Rectangle> it = tetromino.iterator(); it.hasNext();)
-			r = it.next();
+		ArrayList<Rectangle> toRemove = new ArrayList<Rectangle>();
+		for(Rectangle r : tetromino)
 			if(r.getLayoutY() == height)
-				tetromino.remove(r);
+				toRemove.add(r);
+		tetromino.removeAll(toRemove);
 	}
 	
 	public void moveDown() {
