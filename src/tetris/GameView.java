@@ -72,7 +72,7 @@ public class GameView extends Pane {
 	/**
 	 * Kezdõ helyzetbe állítja a játékteret a kezdõ alakzattal a pályán.
 	 */
-	void init() {
+	public void init() {
 		this.gameOver.set(false);
 		this.getChildren().clear();
 		shapes.init();
@@ -82,40 +82,40 @@ public class GameView extends Pane {
 	/**
 	 * Ki be kapcsolja a szüneteltetést.
 	 */
-	void toggleGamePause() { paused = !paused; }
+	public void toggleGamePause() { paused = !paused; }
 	/**
 	 * Szüneteltetve van-e a játék.
 	 * @return True, ha szünetel, false, ha nem.
 	 */
-	boolean isPaused() { return paused; }
+	public boolean isPaused() { return paused; }
 	/**
 	 * Megadja a játéktéren lévõ alakzatokat.
 	 * @return A játéktéren lévõ alakzatok, mint Component.
 	 */
-	Components getShapes() { return shapes; }
+	public Components getShapes() { return shapes; }
 	/**
 	 * Az eddig eltüntetett sorok száma observable-ként.
 	 * Ezzel az oldalsó pont nézet frissíteni tudja a jelenlegi pontszámot.
 	 * @return Observable Integer-ként az eddig eltüntetett sorok száma.
 	 */
-	SimpleIntegerProperty rowsRemovedProperty() { return rowsRemoved; }
+	public SimpleIntegerProperty rowsRemovedProperty() { return rowsRemoved; }
 	/**
 	 * A játék végét jelzõ boolean observable-ként.
 	 * A játék végének jelzésére szolgál.
 	 * @return Observable boolean-ként, hogy vége-e a játéknak.
 	 */
-	SimpleBooleanProperty gameOverProperty() { return gameOver; }
+	public SimpleBooleanProperty gameOverProperty() { return gameOver; }
 	/**
 	 * Az eddig eltüntetett sorok száma primitív int-ként.
 	 * @return Az eltüntetett sorok száma.
 	 */
-	int getRowsRemoved() { return rowsRemoved.get(); }
+	public int getRowsRemoved() { return rowsRemoved.get(); }
 	
 	/**
 	 * Végig megy minden soron és megnézi, hogy teli-e. 
 	 * Ha igen, kitörli az abban a sorban lévõ alakzatok érintett négyzeteit.
 	 */
-	public void removeFullRows() {
+	private void removeFullRows() {
 		double blockSideSize = shapes.getCurrentT().getSideSize();
 		double rowHeight;
 		for (int row = 0; row < (int) this.getPrefHeight() / blockSideSize; row++) {
@@ -142,7 +142,7 @@ public class GameView extends Pane {
 	/**
 	 * Betölti a játékot abból a fájlból, aminek a nevében szerepel a játékos neve.
 	 */
-	void loadGame(String fileName) {
+	public void loadGame(String fileName) {
 		FileInputStream f;
 		ObjectInputStream o;
 		try {
@@ -182,7 +182,7 @@ public class GameView extends Pane {
 	 * Elmenti a játék állapotát és a szerzett pontokat, egy a játékos nevével ellátott fájlba.
 	 * Ennek segítségével, ha valaki elmenteti a játékot, legközelebb ugyanonnan folytathatja.
 	 */
-	void saveGame(String fileName) {
+	public void saveGame(String fileName) {
 		try {
 			FileOutputStream f = new FileOutputStream(fileName);
 			ObjectOutputStream o = new ObjectOutputStream(f);
