@@ -126,8 +126,14 @@ public class Components {
 		// Ha lefelé mozgatná és még nem ért le, minden négyzetét egy négyzetoldalnyival lejjebb helyezi
 		else if (direction.equals(KeyCode.DOWN) && canMove(direction))
 			currentT.moveDown();
-		else if (direction.equals(KeyCode.UP))
+		else if (direction.equals(KeyCode.UP)) {
+			double[] newCoordinates = currentT.getNextRotationXCoordinates();
+			// ha túlmenne a falon, nem foroghat
+			for(int i = 0; i < newCoordinates.length; i++)
+				if(newCoordinates[i] < 0.0 || newCoordinates[i] > width - currentT.getSideSize())
+					return;
 			currentT.rotate();
+		}
 	}
 	
 	/**

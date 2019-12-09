@@ -81,7 +81,7 @@ public class Tetromino implements Serializable {
 			}
 		}
 		catch (IllegalArgumentException e) {
-			new ErrorAlert(e.toString(), "Error");
+			new ErrorAlert(e.toString(), "Hiba");
 		}
 		initRotations();
 		tetromino = new ArrayList<Rectangle>();
@@ -157,6 +157,21 @@ public class Tetromino implements Serializable {
 			nextRotationIndex++;
 		else
 			nextRotationIndex = 0;
+	}
+	
+	/**
+	 * Kiszámolja, hogy mik lesznek a következõ forgatás utáni koordniáták, de nem forgatja el.
+	 * @return A forgatás utáni koordináták.
+	 */
+	double[] getNextRotationXCoordinates() {
+		int[] shift;
+		double[] rotated = new double[tetromino.size()];
+		for(int i = 0; i < tetromino.size(); i++) {
+			shift = rotations.get(nextRotationIndex)[i];
+			if(shift[0] != 0)
+				rotated[i] = tetromino.get(i).getLayoutX() + (double) shift[0] * blockSideSize;
+		}
+		return rotated;
 	}
 	
 	/**

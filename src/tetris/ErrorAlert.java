@@ -1,5 +1,6 @@
 package tetris;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 /**
@@ -15,6 +16,7 @@ public class ErrorAlert extends Alert {
 		super(AlertType.ERROR, message);
 		this.setTitle(title);
 		this.setHeaderText(null);
-		this.showAndWait().ifPresent(e -> { ; });
+		// hiba esetén kilép a programból
+		this.showAndWait().ifPresent(e -> { Platform.exit(); System.exit(0); });
 	}
 }
